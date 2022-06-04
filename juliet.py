@@ -1040,9 +1040,9 @@ def loglike(cube, ndim=None, nparams=None):
                         return -1e101
                     else:
                         ecc_factor = (1. + ecc*np.sin(omega * np.pi/180.))/(1. - ecc**2)
-                        inc_inv_factor = (b/a)*ecc_factor
-                        if not (b>1.+p or inc_inv_factor >=1.):
-                            inc = np.arccos(inc_inv_factor)*180./np.pi
+                        #inc_inv_factor = (b/a)*ecc_factor
+                        if not (b>1.+p): # or inc_inv_factor >=1.):
+                            #inc = np.arccos(inc_inv_factor)*180./np.pi
                             lc_dictionary[instrument]['params'].t0 = t0 
                             lc_dictionary[instrument]['params'].per = P
                             lc_dictionary[instrument]['params'].rp = p
@@ -2212,8 +2212,8 @@ if lcfilename is not None:
                         omega = np.arctan2(priors['sesinomega_p'+str(i)]['cvalue'],priors['secosomega_p'+str(i)]['cvalue'])*180./np.pi
 
                     ecc_factor = (1. + ecc*np.sin(omega * np.pi/180.))/(1. - ecc**2)
-                    inc_inv_factor = (b/a)*ecc_factor
-                    inc = np.arccos(inc_inv_factor)*180./np.pi
+                    #inc_inv_factor = (b/a)*ecc_factor
+                    #inc = np.arccos(inc_inv_factor)*180./np.pi
                     lc_dictionary[instrument]['params'].t0 = t0 
                     lc_dictionary[instrument]['params'].per = P
                     lc_dictionary[instrument]['params'].rp = p
@@ -2568,9 +2568,9 @@ if lcfilename is not None:
                     omega = np.arctan2(priors['sesinomega_p'+str(iplanet)]['cvalue'],priors['secosomega_p'+str(iplanet)]['cvalue'])*(180/np.pi)
 
                 ecc_factor = (1. + ecc*np.sin(omega * np.pi/180.))/(1. - ecc**2)
-                inc_inv_factor = (b/a)*ecc_factor
-                if not (b>1.+p or inc_inv_factor >=1.):
-                    inc = np.arccos(inc_inv_factor)*180./np.pi
+                #inc_inv_factor = (b/a)*ecc_factor
+                if not (b>1.+p): # or inc_inv_factor >=1.):
+                    #inc = np.arccos(inc_inv_factor)*180./np.pi
                     params_model.t0 = t0
                     params_model.per = P
                     params_model.rp = p
@@ -2629,8 +2629,8 @@ if lcfilename is not None:
                         omega = np.arctan2(priors['sesinomega_p'+str(i)]['cvalue'],priors['secosomega_p'+str(i)]['cvalue'])*180./np.pi
 
                     ecc_factor = (1. + ecc*np.sin(omega * np.pi/180.))/(1. - ecc**2)
-                    inc_inv_factor = (b/a)*ecc_factor
-                    inc = np.arccos(inc_inv_factor)*180./np.pi
+                    #inc_inv_factor = (b/a)*ecc_factor
+                    #inc = np.arccos(inc_inv_factor)*180./np.pi
                     lc_dictionary[instrument]['params'].t0 = t0
                     lc_dictionary[instrument]['params'].per = P
                     lc_dictionary[instrument]['params'].rp = p
