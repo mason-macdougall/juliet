@@ -2600,8 +2600,8 @@ class model(object):
                         return False
                     else:
                         ecc_factor = (1. + ecc*np.sin(omega * np.pi/180.))/(1. - ecc**2)
-                        inc_inv_factor = (b/a)*ecc_factor
-                        if not (b>1.+p or inc_inv_factor >=1.):
+                        #inc_inv_factor = (b/a)*ecc_factor
+                        if not (b>1.+p): # or inc_inv_factor >=1.):
                             self.model[instrument]['params'].t0 = t0
                             self.model[instrument]['params'].per = P
                             self.model[instrument]['params'].T14 = T14
