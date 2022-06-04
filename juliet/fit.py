@@ -2566,7 +2566,7 @@ class model(object):
                     else:
                        if not self.dictionary['fitrho']:
                            if not self.dictionary[instrument]['TransitFitCatwoman']:
-                               a,b,p = parameter_values['a_p'+str(i)], parameter_values['b_p'+str(i)],\
+                               T14,b,p = parameter_values['T14_p'+str(i)], parameter_values['b_p'+str(i)],\
                                        parameter_values['p_p'+str(i)]
                            else:
                                a,b,p1,p2,phi = parameter_values['a_p'+str(i)], parameter_values['b_p'+str(i)],\
@@ -2604,8 +2604,8 @@ class model(object):
                         if not (b>1.+p or inc_inv_factor >=1.):
                             self.model[instrument]['params'].t0 = t0
                             self.model[instrument]['params'].per = P
-                            self.model[instrument]['params'].a = a
-                            self.model[instrument]['params'].inc = np.arccos(inc_inv_factor)*180./np.pi
+                            self.model[instrument]['params'].T14 = T14
+                            self.model[instrument]['params'].b = b #np.arccos(inc_inv_factor)*180./np.pi
                             self.model[instrument]['params'].ecc = ecc 
                             self.model[instrument]['params'].w = omega
                             if not self.dictionary[instrument]['TransitFitCatwoman']:
