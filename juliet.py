@@ -856,8 +856,8 @@ def init_batman(t,law, n_ss=None, exptime_ss=None):
     params.t0 = 0.
     params.per = 1.
     params.rp = 0.1
-    params.a = 15.
-    params.inc = 87.
+    params.T14 = 0.1
+    params.b = 0.5
     params.ecc = 0.
     params.w = 90.
     if law == 'linear':
@@ -871,14 +871,14 @@ def init_batman(t,law, n_ss=None, exptime_ss=None):
         m = batman.TransitModel(params, t, supersample_factor=n_ss, exp_time=exptime_ss)
     return params,m
 
-def get_transit_model(t,t0,P,p,a,inc,q1,q2,ld_law,n_ss,exptime_ss):
+def get_transit_model(t,t0,P,p,T14,b,q1,q2,ld_law,n_ss,exptime_ss):
     params,m = init_batman(t,law=ld_law,n_ss=n_ss,exptime_ss=exptime_ss)
     coeff1,coeff2 = reverse_ld_coeffs(ld_law, q1, q2)
     params.t0 = t0
     params.per = P
     params.rp = p
-    params.a = a
-    params.inc = inc
+    params.T14 = T14
+    params.b = b
     if ld_law == 'linear':
         params.u = [coeff1]
     else:
@@ -1019,7 +1019,7 @@ def loglike(cube, ndim=None, nparams=None):
                                   pu + (pl-pu)*np.sqrt(r1/Ar)*(1.-r2)
                     else:
                         if not fitrho:
-                            a,b,p,t0,P = priors['a_p'+str(i)]['cvalue'],priors['b_p'+str(i)]['cvalue'],\
+                            T14,b,p,t0,P = priors['T14_p'+str(i)]['cvalue'],priors['b_p'+str(i)]['cvalue'],\
                                          priors['p_p'+str(i)]['cvalue'], priors['t0_p'+str(i)]['cvalue'], \
                                          priors['P_p'+str(i)]['cvalue']
                         else:
@@ -1046,8 +1046,8 @@ def loglike(cube, ndim=None, nparams=None):
                             lc_dictionary[instrument]['params'].t0 = t0 
                             lc_dictionary[instrument]['params'].per = P
                             lc_dictionary[instrument]['params'].rp = p
-                            lc_dictionary[instrument]['params'].a = a
-                            lc_dictionary[instrument]['params'].inc = inc
+                            lc_dictionary[instrument]['params'].T14 = T14
+                            lc_dictionary[instrument]['params'].b = b
                             lc_dictionary[instrument]['params'].ecc = ecc
                             lc_dictionary[instrument]['params'].w = omega
                             lcmodel[instrument_indexes_lc[instrument]] = lcmodel[instrument_indexes_lc[instrument]]*lc_dictionary[instrument]['m'].light_curve(lc_dictionary[instrument]['params'])
@@ -2194,7 +2194,7 @@ if lcfilename is not None:
                                   pu + (pl-pu)*np.sqrt(r1/Ar)*(1.-r2)
                     else:
                         if not fitrho:
-                            a,b,p,t0,P = priors['a_p'+str(i)]['cvalue'],priors['b_p'+str(i)]['cvalue'],\
+                            T14,b,p,t0,P = priors['T14_p'+str(i)]['cvalue'],priors['b_p'+str(i)]['cvalue'],\
                                          priors['p_p'+str(i)]['cvalue'], priors['t0_p'+str(i)]['cvalue'], \
                                          priors['P_p'+str(i)]['cvalue']
                         else:
@@ -2217,8 +2217,8 @@ if lcfilename is not None:
                     lc_dictionary[instrument]['params'].t0 = t0 
                     lc_dictionary[instrument]['params'].per = P
                     lc_dictionary[instrument]['params'].rp = p
-                    lc_dictionary[instrument]['params'].a = a
-                    lc_dictionary[instrument]['params'].inc = inc
+                    lc_dictionary[instrument]['params'].T14 = T14
+                    lc_dictionary[instrument]['params'].b = b
                     lc_dictionary[instrument]['params'].ecc = ecc
                     lc_dictionary[instrument]['params'].w = omega
                     all_lc_real_models[counter,:] = all_lc_real_models[counter,:]*\
@@ -2549,7 +2549,7 @@ if lcfilename is not None:
                               pu + (pl-pu)*np.sqrt(r1/Ar)*(1.-r2)
                 else:
                     if not fitrho:
-                        a,b,p,t0,P = priors['a_p'+str(iplanet)]['cvalue'],priors['b_p'+str(iplanet)]['cvalue'],\
+                        T14,b,p,t0,P = priors['T14_p'+str(iplanet)]['cvalue'],priors['b_p'+str(iplanet)]['cvalue'],\
                                      priors['p_p'+str(iplanet)]['cvalue'], priors['t0_p'+str(iplanet)]['cvalue'], \
                                      priors['P_p'+str(iplanet)]['cvalue']
                     else:
@@ -2574,8 +2574,8 @@ if lcfilename is not None:
                     params_model.t0 = t0
                     params_model.per = P
                     params_model.rp = p
-                    params_model.a = a
-                    params_model.inc = inc
+                    params_model.T14 = T14
+                    params_model.b = b
                     params_model.ecc = ecc
                     params_model.w = omega
 
@@ -2611,7 +2611,7 @@ if lcfilename is not None:
                                   pu + (pl-pu)*np.sqrt(r1/Ar)*(1.-r2)
                     else:
                         if not fitrho:
-                            a,b,p,t0,P = priors['a_p'+str(i)]['cvalue'],priors['b_p'+str(i)]['cvalue'],\
+                            T14,b,p,t0,P = priors['T14_p'+str(i)]['cvalue'],priors['b_p'+str(i)]['cvalue'],\
                                          priors['p_p'+str(i)]['cvalue'], priors['t0_p'+str(i)]['cvalue'], \
                                          priors['P_p'+str(i)]['cvalue']
                         else:
@@ -2634,8 +2634,8 @@ if lcfilename is not None:
                     lc_dictionary[instrument]['params'].t0 = t0
                     lc_dictionary[instrument]['params'].per = P
                     lc_dictionary[instrument]['params'].rp = p
-                    lc_dictionary[instrument]['params'].a = a
-                    lc_dictionary[instrument]['params'].inc = inc
+                    lc_dictionary[instrument]['params'].T14 = T14
+                    lc_dictionary[instrument]['params'].b = b
                     lc_dictionary[instrument]['params'].ecc = ecc
                     lc_dictionary[instrument]['params'].w = omega
                     all_lc_real_models_no_planet[counter,:] = all_lc_real_models_no_planet[counter,:]*\
