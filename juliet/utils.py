@@ -27,6 +27,9 @@ def init_batman(t, ld_law, nresampling = None, etresampling = None):
      else:
          params.u = [0.1,0.3]
      params.limb_dark = ld_law
+     
+     nresampling  = 7
+     etresampling = (30.*60.)/86400.
      if nresampling is None or etresampling is None:
          m = batman.TransitModel(params, t)
      else:
