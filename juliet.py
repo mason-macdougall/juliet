@@ -1337,7 +1337,7 @@ if (not os.path.exists(out_folder+'posteriors.pkl')) and (not os.path.exists(out
             if dynesty_nthreads == 'none':
                 sampler = dynesty.DynamicNestedSampler(loglike, prior, n_params, nlive=n_live_points, bound = dynesty_bound, sample = dynesty_sample)
                 # Run and get output:
-                sampler.run_nested()
+                sampler.run_nested(n_effective_init=100000, n_effective=100000)
                 results = sampler.results
             else:
                 from multiprocessing import Pool
@@ -1347,14 +1347,14 @@ if (not os.path.exists(out_folder+'posteriors.pkl')) and (not os.path.exists(out
                     sampler = dynesty.DynamicNestedSampler(loglike, prior, n_params, nlive=n_live_points, \
                                                            bound = dynesty_bound, sample = dynesty_sample, \
                                                            pool=executor, queue_size=nthreads)
-                    sampler.run_nested()
+                    sampler.run_nested(n_effective_init=100000, n_effective=100000)
                     results = sampler.results
                     
         else:
             if dynesty_nthreads == 'none':
                 sampler = dynesty.NestedSampler(loglike, prior, n_params, nlive=n_live_points, bound = dynesty_bound, sample = dynesty_sample)
                 # Run and get output:
-                sampler.run_nested()
+                sampler.run_nested(n_effective_init=100000, n_effective=100000)
                 results = sampler.results
             else:
                 from multiprocessing import Pool
@@ -1364,7 +1364,7 @@ if (not os.path.exists(out_folder+'posteriors.pkl')) and (not os.path.exists(out
                     sampler = dynesty.NestedSampler(loglike, prior, n_params, nlive=n_live_points,\
                                                     bound = dynesty_bound, sample = dynesty_sample,\
                                                     pool=executor, queue_size=nthreads)
-                    sampler.run_nested()
+                    sampler.run_nested(n_effective_init=100000, n_effective=100000)
                     results = sampler.results
         out['dynesty_output'] = results
         # Get weighted posterior:
