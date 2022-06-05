@@ -1460,7 +1460,7 @@ class fit(object):
                         if arg in kwargs:
                             ds_args[arg] = kwargs[arg]
                     # Now run:
-                    sampler.run_nested(n_effective=100000, **ds_args)
+                    sampler.run_nested(**ds_args)
                     # And extract results
                     results = sampler.results
 
@@ -1490,7 +1490,7 @@ class fit(object):
                     # Now run all with multiprocessing:
                     with contextlib.closing(Pool(processes=self.nthreads-1)) as executor:
                         sampler = DynestySampler(self.loglike, self.prior_transform_r, self.data.nparams, pool=executor, queue_size=self.nthreads, **d_args)
-                        sampler.run_nested(n_effective=100000, **ds_args)
+                        sampler.run_nested(**ds_args)
                         results = sampler.results
 
                 # Extract dynesty outputs:
