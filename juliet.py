@@ -865,6 +865,9 @@ def init_batman(t,law, n_ss=None, exptime_ss=None):
     else:
         params.u = [0.1,0.3]
     params.limb_dark = law
+    
+    nresampling  = 7
+    etresampling = (30.*60.)/86400.
     if n_ss is None or exptime_ss is None:
         m = batman.TransitModel(params, t)
     else: 
