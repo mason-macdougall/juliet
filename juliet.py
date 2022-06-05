@@ -865,9 +865,6 @@ def init_batman(t,law, n_ss=None, exptime_ss=None):
     else:
         params.u = [0.1,0.3]
     params.limb_dark = law
-    
-    nresampling  = 7
-    etresampling = (30.*60.)/86400.
     if n_ss is None or exptime_ss is None:
         m = batman.TransitModel(params, t)
     else: 
@@ -1337,7 +1334,7 @@ if (not os.path.exists(out_folder+'posteriors.pkl')) and (not os.path.exists(out
             if dynesty_nthreads == 'none':
                 sampler = dynesty.DynamicNestedSampler(loglike, prior, n_params, nlive=n_live_points, bound = dynesty_bound, sample = dynesty_sample)
                 # Run and get output:
-                sampler.run_nested(n_effective_init=100000, n_effective=100000)
+                sampler.run_nested()
                 results = sampler.results
             else:
                 from multiprocessing import Pool
@@ -1347,14 +1344,14 @@ if (not os.path.exists(out_folder+'posteriors.pkl')) and (not os.path.exists(out
                     sampler = dynesty.DynamicNestedSampler(loglike, prior, n_params, nlive=n_live_points, \
                                                            bound = dynesty_bound, sample = dynesty_sample, \
                                                            pool=executor, queue_size=nthreads)
-                    sampler.run_nested(n_effective_init=100000, n_effective=100000)
+                    sampler.run_nested()
                     results = sampler.results
                     
         else:
             if dynesty_nthreads == 'none':
                 sampler = dynesty.NestedSampler(loglike, prior, n_params, nlive=n_live_points, bound = dynesty_bound, sample = dynesty_sample)
                 # Run and get output:
-                sampler.run_nested(n_effective_init=100000, n_effective=100000)
+                sampler.run_nested()
                 results = sampler.results
             else:
                 from multiprocessing import Pool
@@ -1364,7 +1361,7 @@ if (not os.path.exists(out_folder+'posteriors.pkl')) and (not os.path.exists(out
                     sampler = dynesty.NestedSampler(loglike, prior, n_params, nlive=n_live_points,\
                                                     bound = dynesty_bound, sample = dynesty_sample,\
                                                     pool=executor, queue_size=nthreads)
-                    sampler.run_nested(n_effective_init=100000, n_effective=100000)
+                    sampler.run_nested()
                     results = sampler.results
         out['dynesty_output'] = results
         # Get weighted posterior:
