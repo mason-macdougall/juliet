@@ -1174,7 +1174,7 @@ class fit(object):
              else:
                  return -1e101
         # Return total log-likelihood:
-        return log_likelihood
+        return 0.0 #log_likelihood
 
     # Log-probability for MCMC samplers:
     def logprob(self, theta):
