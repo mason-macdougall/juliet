@@ -1174,7 +1174,7 @@ class fit(object):
              else:
                  return -1e101
         # Return total log-likelihood:
-        return 0.0 #log_likelihood
+        return log_likelihood
 
     # Log-probability for MCMC samplers:
     def logprob(self, theta):
@@ -1461,6 +1461,7 @@ class fit(object):
                             ds_args[arg] = kwargs[arg]
                     # Now run:
                     sampler.run_nested(**ds_args)
+                    print('n_efffective:', sampler.n_effective)
                     # And extract results
                     results = sampler.results
 
